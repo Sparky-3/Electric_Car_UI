@@ -24,13 +24,17 @@ def add(total):
         total.set(value + 1)
     except ValueError:
         pass
+def reset():
+   spe_total.set('0')
+   dis_total.set('0')
+
 
 def layout(parent, title, total):
-    ttk.Label(parent, text=title).grid(column=2, row=0, sticky='nsew', padx=5, pady=5)
+    ttk.Label(parent, text=title, anchor='center').grid(column=2, row=0, sticky='nsew', padx=5, pady=5)
     ttk.Button(parent, text='Decrease', command=lambda: sub(total)).grid(column=0, row=1, sticky='nsew', padx=5, pady=5)
     ttk.Button(parent, text='Increase', command=lambda: add(total)).grid(column=4, row=1, sticky='nsew', padx=5, pady=5)
-    ttk.Label(parent, textvariable=total).grid(column=2, row=2, sticky='nsew', padx=5, pady=5)
-
+    ttk.Label(parent, textvariable=total, anchor='center').grid(column=2, row=2, sticky='nsew', padx=5, pady=5)
+    
 def config(parent, col_num, row_num, col_weight, row_weight):
     for i in range(col_num):
         parent.columnconfigure(i, weight=col_weight)
@@ -53,6 +57,12 @@ bottomframe = ttk.Frame(mainframe, borderwidth=5, relief='ridge')
 
 topframe.grid(column=0, row=0, sticky='nsew', padx=5, pady=5)
 bottomframe.grid(column=0, row=1, sticky='nsew', padx=5, pady=5)
+
+res = ttk.Button(topframe, text='Reset Values', command=reset).grid(column=0, row=0, sticky='nsew', padx=20, pady=20)
+s_spe = Scale(topframe, borderwidth=10, resolution=5, variable=spe_total, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
+s_spe.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
+s_dis = Scale(bottomframe, borderwidth=10, variable=dis_total, resolution=5, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
+s_dis.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
 
 config(topframe, 5, 3, 1, 1)
 config(bottomframe, 5, 3, 1, 1)
