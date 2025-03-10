@@ -3,12 +3,13 @@ from tkinter import ttk
 
 root = Tk()
 root.title('Electric Car Controller')
-root.geometry("600x600")
+root.geometry("800x600")
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 
 spe_total = StringVar(value='0')
 dis_total = StringVar(value='0')
+start_op = StringVar(value='')
 
 def sub(total):
     try:
@@ -24,6 +25,10 @@ def add(total):
         total.set(value + 1)
     except ValueError:
         pass
+
+def start():
+    pass
+
 def reset():
    spe_total.set('0')
    dis_total.set('0')
@@ -50,29 +55,41 @@ mainframe = ttk.Frame(content, borderwidth=5, relief='ridge')
 mainframe.grid(column=0, row=0, sticky='nsew')
 mainframe.grid_propagate(False)
 
-config(mainframe, 1, 3, 1, 1)
+config(mainframe, 1, 4, 1, 1)
 
 title_frame = ttk.Frame(mainframe, borderwidth=5)
 topframe = ttk.Frame(mainframe, borderwidth=5, relief='ridge')
 bottomframe = ttk.Frame(mainframe, borderwidth=5, relief='ridge')
+begin = ttk.Frame(mainframe, borderwidth=5)
 
 title_frame.grid(column=0, row=0, sticky='nsew', padx=5, pady=5)
 topframe.grid(column=0, row=1, sticky='nsew', padx=5, pady=5)
 bottomframe.grid(column=0, row=2, sticky='nsew', padx=5, pady=5)
-
-title = ttk.Label(title_frame, text="Lucy's Electric Car Controller", anchor='center').grid(column=2, row=0, sticky='nsew')
-res = ttk.Button(topframe, text='Reset Values', command=reset).grid(column=0, row=0, sticky='nsew', padx=20, pady=20)
-s_spe = Scale(topframe, borderwidth=10, resolution=5, variable=spe_total, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
-s_spe.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
-s_dis = Scale(bottomframe, borderwidth=10, variable=dis_total, resolution=5, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
-s_dis.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
+begin.grid(column=0, row=3, sticky='nsew', padx=5, pady=5)
 
 config(topframe, 5, 3, 1, 1)
 config(bottomframe, 5, 3, 1, 1)
 config(title_frame, 5, 1, 1, 1)
+config(begin, 3, 1, 1, 1)
+
+
+title = ttk.Label(title_frame, text="Lucy's Electric Car Controller", anchor='center').grid(column=2, row=0, sticky='nsew')
+res = ttk.Button(topframe, text='Reset Values', command=reset)
+res.grid(column=0, row=0, sticky='nsew', padx=20, pady=20)
+s_spe = Scale(topframe, borderwidth=10, resolution=5, variable=spe_total, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
+s_spe.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
+s_dis = Scale(bottomframe, borderwidth=10, variable=dis_total, resolution=5, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
+s_dis.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
+start_button = ttk.Button(begin, text='Start Car', command=start)
+start_button.grid(column=0, row=0, sticky='nsew', padx=10, pady=1)
+speed_button = ttk.Radiobutton(begin, text="Speed", variable=start_op, value='speed')
+distance_button = ttk.Radiobutton(begin, text="Time", variable=start_op, value='distance')
+speed_button.grid(column=1, row=0, sticky='nsew', padx=5, pady=1)
+distance_button.grid(column=2, row=0, sticky='nsew', padx=5, pady=1)
+
 
 layout(topframe, 'Speed', spe_total)
-layout(bottomframe, 'Distance', dis_total)
+layout(bottomframe, 'Time', dis_total)
 
 root.mainloop()
 
