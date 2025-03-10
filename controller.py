@@ -8,7 +8,7 @@ root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 
 spe_total = StringVar(value='0')
-dis_total = StringVar(value='0')
+time_total = StringVar(value='0')
 start_op = StringVar(value='')
 
 def sub(total):
@@ -27,12 +27,11 @@ def add(total):
         pass
 
 def start():
-    pass
+    pass   #### SHEELLLL, the button to start the car calls this function, time_total is the total time the user inputs (no units, interpret as you will), spe_total is the same but for speed, and start_op is the option the user selects via the radio buttons at the bottom. It contains a string that will read either speed or time (exactly as I have shown). When no button has been selected vet it reads ''. 
 
 def reset():
    spe_total.set('0')
-   dis_total.set('0')
-
+   time_total.set('0')
 
 def layout(parent, title, total):
     ttk.Label(parent, text=title, anchor='center').grid(column=2, row=0, sticky='nsew', padx=5, pady=5)
@@ -78,18 +77,18 @@ res = ttk.Button(topframe, text='Reset Values', command=reset)
 res.grid(column=0, row=0, sticky='nsew', padx=20, pady=20)
 s_spe = Scale(topframe, borderwidth=10, resolution=5, variable=spe_total, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
 s_spe.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
-s_dis = Scale(bottomframe, borderwidth=10, variable=dis_total, resolution=5, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
-s_dis.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
+s_time = Scale(bottomframe, borderwidth=10, variable=time_total, resolution=5, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
+s_time.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
 start_button = ttk.Button(begin, text='Start Car', command=start)
 start_button.grid(column=0, row=0, sticky='nsew', padx=10, pady=1)
 speed_button = ttk.Radiobutton(begin, text="Speed", variable=start_op, value='speed')
-distance_button = ttk.Radiobutton(begin, text="Time", variable=start_op, value='distance')
+distance_button = ttk.Radiobutton(begin, text="Time", variable=start_op, value='time')
 speed_button.grid(column=1, row=0, sticky='nsew', padx=5, pady=1)
 distance_button.grid(column=2, row=0, sticky='nsew', padx=5, pady=1)
 
 
 layout(topframe, 'Speed', spe_total)
-layout(bottomframe, 'Time', dis_total)
+layout(bottomframe, 'Time', time_total)
 
 root.mainloop()
 
