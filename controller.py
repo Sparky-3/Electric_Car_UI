@@ -27,7 +27,8 @@ def add(total):
         pass
 
 def start():
-    pass   ''' SHEELLLL, the button to start the car calls this function, time_total 
+    pass   
+    ''' SHEELLLL, the button to start the car calls this function, time_total 
 is the total time the user inputs (no units, interpret as you will), spe_total is the same but for speed, and start_op is the 
 option the user selects via the radio buttons at the bottom. It contains a string that
 will read either speed or time (exactly as I have shown). When no button has been selected yet it reads ''. 
