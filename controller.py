@@ -28,7 +28,8 @@ def add(total, max_val, change):
         pass
 
 def start():
-    pass   
+    start_button.config(state='disabled')
+    start_button.config(state='normal')
 
 def reset():
    spe_total.set('0')
