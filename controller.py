@@ -11,18 +11,19 @@ spe_total = StringVar(value='0')
 time_total = StringVar(value='0')
 start_op = StringVar(value='')
 
-def sub(total):
+def sub(total, min_val, change):
     try:
         value = int(total.get())
-        if value > 0:
-            total.set(value - 1)
+        if value > min_val:
+            total.set(value - change)
     except ValueError:
         pass
 
-def add(total):
+def add(total, max_val, change):
     try:
         value = int(total.get())
-        total.set(value + 1)
+        if value < max_val:
+            total.set(value + change)
     except ValueError:
         pass
 
@@ -33,12 +34,13 @@ def reset():
    spe_total.set('0')
    time_total.set('0')
 
-def layout(parent, title, total):
+def layout(parent, title, total, unit, min_val, max_val, change):
     ttk.Label(parent, text=title, anchor='center').grid(column=2, row=0, sticky='nsew', padx=5, pady=5)
-    ttk.Button(parent, text='Decrease', command=lambda: sub(total)).grid(column=0, row=1, sticky='nsew', padx=5, pady=5)
-    ttk.Button(parent, text='Increase', command=lambda: add(total)).grid(column=4, row=1, sticky='nsew', padx=5, pady=5)
-    ttk.Label(parent, textvariable=total, anchor='center').grid(column=2, row=2, sticky='nsew', padx=5, pady=5)
-    
+    ttk.Button(parent, text='Decrease', command=lambda: sub(total, min_val, change)).grid(column=0, row=1, sticky='nsew', padx=5, pady=5)
+    ttk.Button(parent, text='Increase', command=lambda: add(total, max_val, change)).grid(column=5, row=1, sticky='nsew', padx=5, pady=5)
+    ttk.Label(parent, textvariable=total, anchor='e').grid(column=2, row=2, sticky='nsew', padx=0, pady=5)
+    ttk.Label(parent, text=unit, anchor='w').grid(column=3, row=2, sticky='nsew', padx=0, pady=5)    
+
 def config(parent, col_num, row_num, col_weight, row_weight):
     for i in range(col_num):
         parent.columnconfigure(i, weight=col_weight)
@@ -66,8 +68,8 @@ topframe.grid(column=0, row=1, sticky='nsew', padx=5, pady=5)
 bottomframe.grid(column=0, row=2, sticky='nsew', padx=5, pady=5)
 begin.grid(column=0, row=3, sticky='nsew', padx=5, pady=5)
 
-config(topframe, 5, 3, 1, 1)
-config(bottomframe, 5, 3, 1, 1)
+config(topframe, 6, 3, 1, 1)
+config(bottomframe, 6, 3, 1, 1)
 config(title_frame, 5, 1, 1, 1)
 config(begin, 3, 1, 1, 1)
 
@@ -87,8 +89,8 @@ speed_button.grid(column=1, row=0, sticky='nsew', padx=5, pady=1)
 distance_button.grid(column=2, row=0, sticky='nsew', padx=5, pady=1)
 
 
-layout(topframe, 'Speed', spe_total)
-layout(bottomframe, 'Time', time_total)
+layout(topframe, 'Speed', spe_total, '%', 0, 100, 1)
+layout(bottomframe, 'Time', time_total, 's', 0, 15, 1)
 
 root.mainloop()
 
