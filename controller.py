@@ -28,11 +28,6 @@ def add(total):
 
 def start():
     pass   
-    ''' SHEELLLL, the button to start the car calls this function, time_total 
-is the total time the user inputs (no units, interpret as you will), spe_total is the same but for speed, and start_op is the 
-option the user selects via the radio buttons at the bottom. It contains a string that
-will read either speed or time (exactly as I have shown). When no button has been selected yet it reads ''. 
-'''
 
 def reset():
    spe_total.set('0')
@@ -80,9 +75,9 @@ config(begin, 3, 1, 1, 1)
 title = ttk.Label(title_frame, text="Lucy's Electric Car Controller", anchor='center').grid(column=2, row=0, sticky='nsew')
 res = ttk.Button(topframe, text='Reset Values', command=reset)
 res.grid(column=0, row=0, sticky='nsew', padx=20, pady=20)
-s_spe = Scale(topframe, borderwidth=10, resolution=5, variable=spe_total, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
+s_spe = Scale(topframe, borderwidth=10, resolution=5, variable=spe_total, showvalue=0, from_ = 0, to = 100, orient = HORIZONTAL)
 s_spe.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
-s_time = Scale(bottomframe, borderwidth=10, variable=time_total, resolution=5, showvalue=0, from_ = 0, to = 30, orient = HORIZONTAL)
+s_time = Scale(bottomframe, borderwidth=10, variable=time_total, resolution=5, showvalue=0, from_ = 0, to = 15, orient = HORIZONTAL)
 s_time.grid(column=1, row=1, columnspan=3, sticky='nsew', padx=5, pady=5)
 start_button = ttk.Button(begin, text='Start Car', command=start)
 start_button.grid(column=0, row=0, sticky='nsew', padx=10, pady=1)
